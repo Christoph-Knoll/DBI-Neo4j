@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  neo4j:
+    image: neo4j
+    container_name: neo4j
+    hostname: neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/n4j
+    volumes:
+      - data:/data
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
+
+volumes:
+  data:
+    driver: local
