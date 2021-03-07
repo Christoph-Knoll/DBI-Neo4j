@@ -99,19 +99,19 @@ namespace MoviesDotNetCore.Repositories
                     );
                     var nodes = new List<D3Node>();
                     var links = new List<D3Link>();
-                    var records = await cursor.ToListAsync();
+                    var records = await cursor.ToListAsync(); //Dictionary
                     foreach (var record in records)
                     {
-                        var movie = new D3Node(record["title"].As<string>(), "movie");
+                        var movie = new D3Node(record["title"].As<string>(), "movie"); // label: movie; title: Filmtitel
                         var movieIndex = nodes.Count;
                         nodes.Add(movie);
                         foreach (var actorName in record["cast"].As<IList<string>>())
                         {
-                            var actor = new D3Node(actorName, "actor");
+                            var actor = new D3Node(actorName, "actor"); // label: actor; title: ActorName
                             var actorIndex = nodes.IndexOf(actor);
                             actorIndex = actorIndex == -1 ? nodes.Count : actorIndex;
                             nodes.Add(actor);
-                            links.Add(new D3Link(actorIndex, movieIndex));
+                            links.Add(new D3Link(actorIndex, movieIndex)); // Verbindung zwischen Nodes wird gesetzt
                         }
                     }
                     return new D3Graph(nodes, links);
